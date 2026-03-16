@@ -5,6 +5,9 @@ public class Usuario {
     private double metaProteina;
     private double metaCarbo;
     private double metaGordura;
+    private double protConsumida = 0;
+    private double carboConsumido = 0;
+    private double gorduraConsumida = 0;
 
     public Usuario (String nome, double peso, double altura) {
         this.nome = nome;
@@ -96,17 +99,31 @@ public class Usuario {
                 this.metaGordura = this.peso * 0.9;
                 break;
             case 6: //bulk moderado
-                this.metaProteina = this.peso * 1.8;
+                this.metaProteina = this.peso * 1.9;
                 this.metaCarbo = this.peso * 5.5;
                 this.metaGordura = this.peso * 1.0;
                 break;
             case 7: //bulk agressivo
-                this.metaProteina = this.peso * 1.8;
+                this.metaProteina = this.peso * 2.0;
                 this.metaCarbo = this.peso * 6.5;
                 this.metaGordura = this.peso * 1.1;
                 break;
             default:
                 System.out.println("Opção de objetivo inválida!");
         }
+    }
+    public void adicionarRefeicao(Refeicao refeicao) {
+        this.protConsumida += refeicao.getProt();
+        this.carboConsumido += refeicao.getCarbo();
+        this.gorduraConsumida += refeicao.getGordura();
+    }
+    public double getRestanteProteina() {
+        return this.metaProteina - this.protConsumida;
+    }
+    public double getRestanteCarbo() {
+        return this.metaCarbo - this.carboConsumido;
+    }
+    public double getRestanteGordura() {
+        return this.metaGordura - this.gorduraConsumida;
     }
 }

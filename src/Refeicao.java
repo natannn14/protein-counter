@@ -13,7 +13,7 @@ public class Refeicao {
     public double getProt() {
         return this.quantProt;
     }
-    public double getCarb() {
+    public double getCarbo() {
         return this.quantCarb;
     }
     public double getGordura() {
