@@ -32,7 +32,9 @@ public class ContadorProteina {
                     + user.getMetaCarbo() + " g de carboidrato\n"
                     + user.getMetaGordura() + " g de gordura");
 
-            double restanteProt;
+            double restanteProt = 0;
+            double restanteCarbo = 0;
+            double restanteGordura = 0;
 
             do {
                 String nomeRefeicao = JOptionPane.showInputDialog(null, "Qual o nome da refeição? (ex: Almoço)");
@@ -50,23 +52,22 @@ public class ContadorProteina {
 
                 user.adicionarRefeicao(refeicaoAtual);
 
-                restanteProt = user.getRestanteProteina();
-                double restanteCarbo = user.getRestanteCarbo();
-                double restanteGordura = user.getRestanteGordura();
-
+            restanteProt = user.getRestanteProteina();
+            restanteCarbo = user.getRestanteCarbo();
+            restanteGordura = user.getRestanteGordura();
 
                 String mensagemResumo = "RESUMO DOS MACROS\n\n";
 
                 if (restanteProt < 0) {
-                    mensagemResumo += " Proteína: Superaste a meta em " + Math.abs(restanteProt) + "g\n";
+                    mensagemResumo += String.format(" Proteína: Faltam %.2fg\n", restanteProt);
                 } else if (restanteProt > 0) {
-                    mensagemResumo += " Proteína: Faltam " + restanteProt + "g\n";
+                    mensagemResumo += String.format (" Proteína: Faltam %2.fg\n " , restanteProt + "g\n");
                 } else {
                     mensagemResumo += " Proteína: Meta atingida!\n";
                 }
 
                 if (restanteCarbo < 0) {
-                    mensagemResumo += " Carboidrato: Superaste a meta em " + Math.abs(restanteCarbo) + "g\n";
+                    mensagemResumo += String.format (" Carboidrato: Superaste a meta em %2.fg\n" , Math.abs(restanteCarbo), "g\n");
                 } else if (restanteCarbo > 0) {
                     mensagemResumo += " Carboidrato: Faltam " + restanteCarbo + "g\n";
                 } else {
@@ -74,16 +75,16 @@ public class ContadorProteina {
                 }
 
                 if (restanteGordura < 0) {
-                    mensagemResumo += "🥑 Gordura: Superaste a meta em " + Math.abs(restanteGordura) + "g\n";
+                    mensagemResumo += " Gordura: Superaste a meta em " + Math.abs(restanteGordura) + "g\n";
                 } else if (restanteGordura > 0) {
-                    mensagemResumo += "🥑 Gordura: Faltam " + restanteGordura + "g\n";
+                    mensagemResumo += " Gordura: Faltam " + restanteGordura + "g\n";
                 } else {
-                    mensagemResumo += "🥑 Gordura: Meta atingida!\n";
+                    mensagemResumo += " Gordura: Meta atingida!\n";
                 }
 
                 JOptionPane.showMessageDialog(null, mensagemResumo);
 
-            } while (restanteProt > 0);
+            } while (restanteProt > 0|| restanteCarbo > 0 || restanteGordura > 0);
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Erro: Insira apenas números!");
