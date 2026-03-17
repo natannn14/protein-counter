@@ -1,54 +1,37 @@
 package model;
 
-/**
- * Classe que representa uma refeição consumida pelo utilizador.
- */
 public class Refeicao {
-    private double quantProt;
-    private double quantCarb;
-    private double quantGordura;
+    private double gramaProt;
+    private double gramaCarbo;
+    private double gramaGordura;
     private String nome;
 
-    // Construtor com validação de dados (Desafio 1)
-    public Refeicao (String nome, double quantProt, double quantCarb, double quantGordura) {
+    public Refeicao (String nome, double gramaProt, double gramaCarbo, double gramaGordura) {
+        if (nome == null || nome.equals("")) {
+            throw new IllegalArgumentException("Nome de refeição invalido");
+        }
         this.nome = nome;
-
-        // Validação da Proteína
-        if (quantProt >= 0) {
-            this.quantProt = quantProt;
-        } else {
-            System.out.println("Aviso: Proteína negativa inserida. Ajustado para 0.");
-            this.quantProt = 0;
-        }
-
-        // Validação do Carboidrato
-        if (quantCarb >= 0) {
-            this.quantCarb = quantCarb;
-        } else {
-            System.out.println("Aviso: Carboidrato negativo inserido. Ajustado para 0.");
-            this.quantCarb = 0;
-        }
-
-        // Validação da Gordura
-        if (quantGordura >= 0) {
-            this.quantGordura = quantGordura;
-        } else {
-            System.out.println("Aviso: Gordura negativa inserida. Ajustado para 0.");
-            this.quantGordura = 0;
-        }
+        this.gramaProt = validarMacro(gramaProt);
+        this.gramaCarbo = validarMacro(gramaCarbo);
+        this.gramaGordura = validarMacro(gramaGordura);
+    }
+    public String toString() {
+        return "A sua refeição" + nome +"\n"
+                + "\ntem " + gramaProt + "g de Proteína\n"
+                + gramaCarbo + "g de Carboidrato\n"
+                + gramaGordura + "g de Gordura\n" ;
     }
 
     public double getProt() {
-        return this.quantProt;
+        return this.gramaProt;
     }
 
-    // Corrigido para getCarbo() para falar a mesma língua que o Usuario
     public double getCarbo() {
-        return this.quantCarb;
+        return this.gramaCarbo;
     }
 
     public double getGordura() {
-        return this.quantGordura;
+        return this.gramaGordura;
     }
 
     public String getNome() {
@@ -56,6 +39,11 @@ public class Refeicao {
     }
 
     public double getCaloriasTotais() {
-        return (this.quantProt * 4) + (this.quantCarb * 4) + (this.quantGordura * 9);
+        return (this.gramaProt * 4) + (this.gramaCarbo * 4) + (this.gramaGordura * 9);
+    }
+    private double validarMacro(double quantMacro) {
+        if (quantMacro >= 0) {
+            return quantMacro;
+        } else throw new IllegalArgumentException("Aviso: MacroNutriente negativo");
     }
 }

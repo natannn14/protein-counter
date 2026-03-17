@@ -15,9 +15,12 @@ public class Usuario {
     private List<Refeicao> historicoRefeicoes;
 
     public Usuario (String nome, double peso, double altura) {
+        if (nome == null || nome.equals("")) {
+            throw new IllegalArgumentException("Nome Invalido");
+        }
         this.nome = nome;
-        this.peso = peso;
-        this.altura = altura;
+        this.peso = validarMedidas(peso);
+        this.altura = validarMedidas(altura);
         this.historicoRefeicoes = new ArrayList<>();
     }
     public String getNome(){
@@ -41,41 +44,23 @@ public class Usuario {
     public double getMetaCaloriasTotais(){
         return (metaProteina * 4) + (metaCarbo * 4) + (metaGordura * 9);
     }
+    public List<Refeicao> getHistoricoRefeicoes(){
+        return this.historicoRefeicoes;
+    }
     public void setPeso(double novoPeso){
-        if (novoPeso > 0) {
-            this.peso = novoPeso;
-        } else {
-            System.out.println("Erro: seu peso deve ser maior que zero");
-        }
-
+            this.peso = validarMedidas(novoPeso);
     }
     public void setAltura (double novaAltura) {
-        if (novaAltura > 0) {
-            this.altura = novaAltura;
-        } else {
-            System.out.println("Erro: sua altura deve ser maior que zero");
-        }
+            this.altura = validarMedidas(novaAltura);
     }
     public void setMetaProteina (double novaMetaProteina) {
-        if (novaMetaProteina >= 1.8 * peso && novaMetaProteina <= 2.5 * peso) {
-            this.metaProteina = novaMetaProteina;
-        } else {
-            System.out.println("A quantia está fora da faixa recomendada");
+            this.metaProteina = validarMeta(novaMetaProteina, 1.8 * peso, 2.5 * peso);
         }
-    }
     public void setMetaCarbo (double novaMetaCarbo){
-        if (novaMetaCarbo >= 1.5 * peso && novaMetaCarbo <= 6.5 * peso) {
-            this.metaCarbo = novaMetaCarbo;
-        } else {
-            System.out.println("A quantia está fora da faixa recomendada");
-        }
+            this.metaCarbo = validarMeta(novaMetaCarbo, 1.5 * peso, 6.5 * peso);
     }
     public void setMetaGordura (double novaMetaGordura) {
-        if (novaMetaGordura >= 0.7 * peso && novaMetaGordura <= 1.1 * peso) {
-            this.metaGordura = novaMetaGordura;
-        } else {
-            System.out.println("A quantia está fora da faixa recomendada");
-        }
+            this.metaGordura = validarMeta(novaMetaGordura, 0.7 * peso, 1.1 * peso);
     }
     public void definirMetaObjetivo (int opcao) {
         switch (opcao) {
@@ -115,7 +100,7 @@ public class Usuario {
                 this.metaGordura = this.peso * 1.1;
                 break;
             default:
-                System.out.println("Opção de objetivo inválida!");
+                throw new IllegalArgumentException("Aviso: Objetivo Inválida");
         }
     }
     public void adicionarRefeicao(Refeicao refeicao) {
@@ -123,6 +108,16 @@ public class Usuario {
         this.carboConsumido += refeicao.getCarbo();
         this.gorduraConsumida += refeicao.getGordura();
         this.historicoRefeicoes.add(refeicao);
+    }
+    private double validarMedidas(double medidas){
+        if (medidas > 0) {
+            return medidas;
+        } else throw new IllegalArgumentException("Aviso: Medida Inválida");
+    }
+    private double validarMeta(double valor, double min, double max){
+        if (valor >= min && valor <= max){
+            return valor;
+        } else throw new IllegalArgumentException("Meta não recomendada");
     }
     public double getRestanteProteina() {
         return this.metaProteina - this.protConsumida;
