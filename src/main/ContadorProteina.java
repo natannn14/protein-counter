@@ -1,4 +1,5 @@
 package main;
+import model.MacroService;
 import model.Usuario;
 import model.Refeicao;
 
@@ -30,15 +31,24 @@ public class ContadorProteina {
 
             user.definirMetaObjetivo(opcao);
 
-            JOptionPane.showMessageDialog(null, "Olá " + entradaNome
-                    + "\nSua meta para o objetivo escolhido é \n"
-                    + user.getMetaProteina() + " g de proteína\n"
-                    + user.getMetaCarbo() + " g de carboidrato\n"
-                    + user.getMetaGordura() + " g de gordura");
+            String mensagemMeta = String.format (
+                    "Olá %s!\nSua meta diária é:\n\n" +
+                    " Proteína: %.1fg\n" +
+                    " Carboidrato: %.1fg\n" +
+                    " Gordura: %.1fg\n" +
+                    " Calorias: %.0f kcal",
+                    entradaNome,
+                    user.getMetaProteina(),
+                    user.getMetaCarbo(),
+                    user.getMetaGordura(),
+                    user.getMetaCaloriasTotais());
+
+            JOptionPane.showMessageDialog(null, mensagemMeta);
 
             double restanteProt = 0;
             double restanteCarbo = 0;
             double restanteGordura = 0;
+            int resposta;
 
             do {
                 String nomeRefeicao = JOptionPane.showInputDialog(null, "Qual o nome da refeição? (ex: Almoço)");
@@ -61,34 +71,16 @@ public class ContadorProteina {
             restanteGordura = user.getRestanteGordura();
 
                 String mensagemResumo = "RESUMO DOS MACROS\n\n";
-
-                if (restanteProt < 0) {
-                    mensagemResumo += String.format(" Proteína: Faltam %.2fg\n", restanteProt);
-                } else if (restanteProt > 0) {
-                    mensagemResumo += String.format (" Proteína: Faltam %2.fg\n " , restanteProt + "g\n");
-                } else {
-                    mensagemResumo += " Proteína: Meta atingida!\n";
-                }
-
-                if (restanteCarbo < 0) {
-                    mensagemResumo += String.format (" Carboidrato: Superaste a meta em %2.fg\n" , Math.abs(restanteCarbo), "g\n");
-                } else if (restanteCarbo > 0) {
-                    mensagemResumo += " Carboidrato: Faltam " + restanteCarbo + "g\n";
-                } else {
-                    mensagemResumo += " Carboidrato: Meta atingida!\n";
-                }
-
-                if (restanteGordura < 0) {
-                    mensagemResumo += " Gordura: Superaste a meta em " + Math.abs(restanteGordura) + "g\n";
-                } else if (restanteGordura > 0) {
-                    mensagemResumo += " Gordura: Faltam " + restanteGordura + "g\n";
-                } else {
-                    mensagemResumo += " Gordura: Meta atingida!\n";
-                }
+                mensagemResumo += MacroService.gerarMensagem("Proteína", restanteProt);
+                mensagemResumo += MacroService.gerarMensagem("Carboidrato", restanteCarbo);
+                mensagemResumo += MacroService.gerarMensagem("Gordura", restanteGordura);
 
                 JOptionPane.showMessageDialog(null, mensagemResumo);
+                resposta = JOptionPane.showConfirmDialog(null, "Deseja registrar outra refeição ?",
+                        "Registro de Refeições",
+                        JOptionPane.YES_NO_OPTION);
 
-            } while (restanteProt > 0|| restanteCarbo > 0 || restanteGordura > 0);
+            } while (resposta == JOptionPane.YES_OPTION);
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Erro: Insira apenas números!");

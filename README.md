@@ -1,36 +1,93 @@
-# Macro Tracker CLI
+# 🚀 Macro Tracker CLI
 
-Este é um projeto pessoal desenvolvido em **Java** com o objetivo de facilitar o controle diário de ingestão de macronutrientes para entusiastas de musculação e saúde. O projeto faz parte do meu portfólio de estudos como graduando em **Engenharia de Computação** no **IF Goiano - Campus Trindade**.
+Sistema em **Java** para controle de ingestão de macronutrientes (Proteína, Carboidrato e Gordura), desenvolvido com foco em **aprendizado de Programação Orientada a Objetos** e boas práticas de desenvolvimento.
 
-## 🚀 Funcionalidades Atuais (MVP)
+> Projeto desenvolvido como parte da minha formação em **Engenharia de Computação (IF Goiano - Campus Trindade)**.
 
-* **Encapsulamento e Segurança de Dados:** Aplicação de modificadores de acesso `private` e validações lógicas (Setters) nos atributos biométricos, garantindo que o sistema não aceite valores impossíveis (ex: pesos negativos ou metas prejudiciais à saúde).
-* **Gestão de Macros Completos:** O sistema evoluiu de um simples contador de proteínas para um gestor completo, calculando metas individuais para Proteínas, Carboidratos e Gorduras, além do cálculo dinâmico de Calorias Totais.
-* **Definição Automática por Objetivo:** Implementação de uma estrutura de decisão (`switch-case`) que configura automaticamente todas as metas do usuário com base em 7 perfis de treinamento (desde Cut Agressivo até Bulk Agressivo), utilizando métricas reais de nutrição esportiva.
-* **Lógica Orientada a Objetos e Associação:** Estrutura focada em Entidades de Domínio (`Usuario` e `Refeicao`). O sistema agora permite que o usuário "consuma" objetos do tipo refeição, delegando a responsabilidade dos cálculos matemáticos para as próprias classes.
-* **Painel de Resumo Dinâmico:** Interface gráfica via `JOptionPane` que exibe em tempo real o balanço dos três macronutrientes (Proteína, Carboidrato e Gordura), informando exatamente quanto falta para atingir a meta ou quanto foi superado.
+---
 
-## 🛠️ Tecnologias Utilizadas
+## 🧠 Sobre o Projeto
 
-* **Linguagem:** Java (JDK 17+).
-* **IDE:** IntelliJ IDEA.
-* **Versionamento:** Git e GitHub.
+O **Macro Tracker CLI** permite que o usuário:
 
-## 🎯 Próximos Passos (Roadmap)
+- Defina seu objetivo (cutting, bulking, manutenção)
+- Tenha metas automáticas de macros baseadas no peso
+- Registre refeições ao longo do dia
+- Acompanhe em tempo real o progresso das metas
 
-Como o projeto está em fase inicial e focado no aprendizado contínuo, as seguintes metas foram estabelecidas:
+---
 
-* [x] **Expansão de Macros:** Inclusão de Carboidratos e Gorduras para um controle de dieta completo.
-* [x] **Interface de Interação:** Implementação de métodos Getters e Setters com validação de dados.
-* [x] **Interface Gráfica Básica:** Interação inicial implementada utilizando `javax.swing.JOptionPane`.
-* [x] **Estruturação da Entidade Refeição:** Finalizar a classe `Refeicao` com seus respectivos construtores e cálculos calóricos individuais.
-* [x] **Associação de Objetos:** Criar a interação entre as classes, permitindo que o `Usuario` registre o consumo de uma `Refeicao` e tenha suas metas diárias subtraídas dinamicamente.
-* [ ] **Histórico de Refeições:** Implementar o uso de coleções (como `ArrayList`) para guardar o histórico completo das refeições ingeridas no dia.
-* [ ] **Persistência de Dados Básica:** Conectar o sistema a um banco de dados relacional (SQL) para manter o histórico de refeições e dados do usuário salvos.
+## ⚙️ Funcionalidades
 
-## 📖 Como Executar
+- ✅ Cálculo automático de macros e calorias
+- ✅ Registro de refeições com múltiplos macronutrientes
+- ✅ Resumo dinâmico do consumo diário
+- ✅ Validação de dados de entrada
+- ✅ Estrutura orientada a objetos (`Usuario` e `Refeicao`)
+- ✅ Refatoração com reutilização de lógica (`MacroService`)
 
-1. Certifique-se de ter o JDK instalado.
-2. Clone o repositório:
-   ```bash
-   git clone [https://github.com/natannn14/protein-counter.git](https://github.com/natannn14/protein-counter.git)
+---
+
+## 🛠️ Tecnologias
+
+- Java (JDK 17+)
+- IntelliJ IDEA
+- Git + GitHub
+
+---
+
+## ▶️ Como executar
+
+```bash
+git clone https://github.com/natannn14/protein-counter.git
+```
+
+1. Abra o projeto na sua IDE
+2. Execute a classe `ContadorProteina`
+3. Interaja com o sistema via interface gráfica (JOptionPane)
+
+---
+
+## 💡 Exemplo de uso
+
+```text
+RESUMO DOS MACROS
+
+Proteína: Faltam 20.00g para atingir a meta
+Carboidrato: Meta atingida!
+Gordura: Meta superada em 10.00g
+```
+
+---
+
+## 📈 Evolução do Projeto
+
+Este projeto evoluiu de um simples contador de proteína para um sistema completo de gerenciamento de macronutrientes.
+
+Principais melhorias:
+- Refatoração para eliminar código repetido
+- Criação de serviços reutilizáveis (`MacroService`)
+- Melhor organização e separação de responsabilidades
+
+---
+
+## 🎯 Roadmap
+
+- [ ] Histórico de refeições (`ArrayList`)
+- [ ] Persistência com banco de dados (SQL)
+- [ ] Interface gráfica mais avançada
+- [ ] Transformar em API (Spring Boot)
+
+---
+
+## 📚 Aprendizados
+
+Durante o desenvolvimento deste projeto, pratiquei:
+
+- Programação Orientada a Objetos (POO)
+- Encapsulamento e validação de dados
+- Refatoração de código
+- Separação de responsabilidades
+- Boas práticas de organização
+
+---
