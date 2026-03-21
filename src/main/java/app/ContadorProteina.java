@@ -1,7 +1,7 @@
-package main;
-import model.MacroService;
-import model.Usuario;
-import model.Refeicao;
+package main.java.app;
+import main.java.service.MacroService;
+import main.java.model.Usuario;
+import main.java.model.Refeicao;
 
 import javax.swing.JOptionPane;
 

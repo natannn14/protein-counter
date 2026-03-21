@@ -1,8 +1,12 @@
+
 ### IntelliJ IDEA ###
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 .kotlin
+
+# Compiled Java files
+*.class
 
 ### Eclipse ###
 .apt_generated
